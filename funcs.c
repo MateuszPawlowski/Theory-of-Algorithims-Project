@@ -13,9 +13,13 @@ int main(int argc, char *argv[]) {
     uint32_t y = 0x0f0f0f0f;
     uint32_t z = 0xf0f0f0f0;
 
-    WORD ans = CH(x, y, z);
+    WORD ans;
 
+    ans = CH(x, y, z);
     printf("Ch(%08" PF ",%08" PF ",%08" PF ")=%08" PF "\n", x, y, z, ans);
+
+    ans = MAJ(x, y, z);
+    printf("Maj(%08" PF ",%08" PF ",%08" PF ")=%08" PF "\n", x, y, z, ans);
 
     return 0;
 }
