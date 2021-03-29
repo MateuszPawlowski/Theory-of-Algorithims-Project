@@ -4,9 +4,8 @@
 #define WORD uint32_t
 #define PF PRIX32
 
-WORD Ch(WORD x, WORD y, WORD z){
-    return (x&y)^(~x&z);
-}
+#define CH(x,y,z)  (x&y)^(~x&z)
+#define MAJ(x,y,z) (x&y)^(x&z)^(y&z)
 
 int main(int argc, char *argv[]) {
 
@@ -14,7 +13,7 @@ int main(int argc, char *argv[]) {
     uint32_t y = 0x0f0f0f0f;
     uint32_t z = 0xf0f0f0f0;
 
-    WORD ans = Ch(x, y, z);
+    WORD ans = CH(x, y, z);
 
     printf("Ch(%08" PF ",%08" PF ",%08" PF ")=%08" PF "\n", x, y, z, ans);
 
