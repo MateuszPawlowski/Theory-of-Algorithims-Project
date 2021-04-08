@@ -57,7 +57,7 @@ int next_block(FILE *f, union Block *B, enum Status *S, uint64_t *nobits) {
             // Append a 1 bit (and seven 0 bits to make a full byte)
             B->bytes[nobytes] = 0x80;
             // Append 0 bits
-            while(nobytes++ < 64) {
+            for (nobytes++; nobytes < 64; nobytes++) {
                  // Error: trying to write to 
                 B->bytes[nobytes] = 0x00; // In bits: 00000000
             }
@@ -65,7 +65,6 @@ int next_block(FILE *f, union Block *B, enum Status *S, uint64_t *nobits) {
             *S = PAD;
         }
     } else if (*S == PAD) {
-        nobytes = 0;
         // Append 0 bits
         for (nobytes = 0; nobytes < 56; nobytes++) {
             B->bytes[nobytes] = 0x00; // In bits: 00000000
