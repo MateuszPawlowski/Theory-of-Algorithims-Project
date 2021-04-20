@@ -64,13 +64,69 @@ const WORD K[] = {
     0x4cc5d4becb3e42b6, 0x597f299cfc657e2a, 0x5fcb6fab3ad6faec, 0x6c44198c4a475817
 };
 
-
 // Returns 1 if it created a new block from original message or padding
 // Returns 0 if all padded message has already been consumed
 int next_block(FILE *f, union Block *M, enum Status *S, uint64_t *nobits) {
 
-    return 0;
+    // Number of bytes read
+    size_t nobytes;
+
+    if (*S == END) {
+        // Finish
+        return 0;
+    } else if (*S == READ) {
+        // Try to read 64 bytes from the input file
+        nobytes = fread(M->bytes, 1, 128, f);
+        // Calculate the total bits read so far
+        *nobits = *nobits + (8 * nobytes);
+        // Enough room for padding
+        if (nobytes == 128) {
+            // This happens when we can read 64 bytes from f
+            // Do nothing
+        } else if (nobytes < 112) {
+            // This happens when we have enough roof for all the padding
+            // Append a 1 bit (and seven 0 bits to make a full byte)
+            M->bytes[nobytes] = 0x80; // In bits: 10000000
+            // Append enough 0 bits, leaving 64 at the end
+            for (nobytes++; nobytes < 112; nobytes++) {
+                M->bytes[nobytes] = 0x00; // In bits: 00000000
+            }
+            // Append nobits as a big endian integer
+            M->sixf[15] = (islilend() ? bswap_64(*nobits) : *nobits);
+            // Say this is the last block
+            *S = END;
+        } else {
+            // Got to the end of the input message and not enough room
+            // in this block for all padding
+            // Append a 1 bit (and seven 0 bits to make a full byte)
+            M->bytes[nobytes] = 0x80;
+            // Append 0 bits
+            for (nobytes++; nobytes < 128; nobytes++) {
+                 // Error: trying to write to 
+                M->bytes[nobytes] = 0x00; // In bits: 00000000
+            }
+            // Change the status to PAD
+            *S = PAD;
+        }
+    } else if (*S == PAD) {
+        // Append 0 bits
+        for (nobytes = 0; nobytes < 112; nobytes++) {
+            M->bytes[nobytes] = 0x00; // In bits: 00000000
+        }
+        // Append nobits as a big endian integer
+        M->sixf[15] = (islilend() ? bswap_64(*nobits) : *nobits);
+        // Change the status to END
+        *S = END;
+    }
+
+    // Swap the byte order of the words if we're little endian
+    if (islilend())
+        for (int i = 0; i < 16; i++)
+            M->words[i] = bswap_64(M->words[i]);
+
+    return 1;
 }
+
 
 int next_hash(union Block *M, WORD H[]) {
   
@@ -119,9 +175,9 @@ int sha512(FILE *f, WORD H[]) {
     enum Status S = READ;
 
     // Loop through the (preprocessed) blocks
-    //while (next_block(f, &M, &S, &nobits)) {
-    //    next_hash(&M, H);
-    //}
+    while (next_block(f, &M, &S, &nobits)) {
+        next_hash(&M, H);
+    }
 
     return 0;
 }
