@@ -191,28 +191,30 @@ int main(int argc, char *argv[]) {
         0x510e527fade682d1, 0x9b05688c2b3e6c1f, 0x1f83d9abfb41bd6b, 0x5be0cd19137e2179
     };
     
-    
+    // File pointer for reading
+    FILE *f;
 
     if(argc < 2){
-        printf("No files was inputed, please enter a file");
-    } else{   
-        
-        // File pointer for reading
-        FILE *f;
-        // Open file from command line for reading
-        f = fopen(argv[1], "r");
+        printf("No file was given.Please try again\n");
+    } else{
+        for(int j =1; j < argc; j++){
+            // Open file from command line for reading
+            f = fopen(argv[j], "r");
+            if(f){
+                // Calculate the SHA512 of f
+                sha512(f, H);
 
-        // Calculate the SHA512 of f
-        sha512(f, H);
-
-        // Print the final SHA512 hash
-        for (int i = 0; i < 8; i++)
-            printf("%016" PF, H[i]);
-        printf("\n");
-
-        // Close the file
-        fclose(f);
-
+                // Print the final SHA512 hash
+                for (int i = 0; i < 8; i++)
+                    printf("%016" PF, H[i]);
+                printf("\n\n");
+                
+                // Close the file
+                fclose(f);
+            }else{
+                printf("The file %s does not seem to exist. Please try again\n", argv[j]); 
+            }
+        }   
     }
     return 0;
 }
