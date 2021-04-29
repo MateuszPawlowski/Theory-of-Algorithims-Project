@@ -2,10 +2,19 @@
 This is my solution to the project that we have gotten for Theory of Algorithims.
 
 ## What we needed to do
-In this project you must write a program in the C programming language to calculate the SHA512 value of an input file. Your program must take the name or path of the file as a command line argument and output the SHA512 digest of it. The program must be coded from scratch - you cannot use any external libraries other than what is included in the C standard library. Your program must compile using gcc or clang and you must include a Makefile which compiles it upon make being called in the project folder. You must also include tests which run upon make test being called, as will be described in lectures. You should also include in your repository an appropriate .gitignore file and a README.md as described below.
+In this project we had to write a program in the C programming language to calculate the SHA512 value of an input file. The program had tp take the name or path of the file as a command line argument and output the SHA512 digest of it. We were not allowed to use any external libraries other than what is included in the C standard library. The programe has to compile using gcc or clang and we had to include a Makefile which compiles it upon make being called in the project folder. We also had to include tests which will run upon make test being called. In the repository we should also include an appropriate .gitignore file and a README.md. This is my solution to the project.
 
 ## What is SHA512 ?
-SHA512 is a set of set of cryptograpchic hash functions with digest length of 512. 
+SHA512 is a hashing algorithim that when given a data (for this project a file) performs a hashing function with digest length of 512. SHA512 is part of a hashing algorithims called SHA-2 which includes SHA256 that is used in bitcoin blockchain for hashing.<br>
+Hasing algorithims as mentioned previously are used for blockchains and for other internet security issues. This shows how crucial role they play in cryptography and digital security.<br>
+Hashing function takes some data (for example a file or a string) and gives out an output called hash digest. That gives a fixed length for that input data. In order to be useful there are some properties it needs to go over.<br>
+There are 4 main properties in order to create a good hash algorithim:
+- The hash value is fully determined by the data being hashed
+- The hash function uses all the input data
+- The hash function "uniformly" distributes the data across the entire set of possible hash values
+- The hash function generates very different hash values for similar inputs
+
+![512example](https://user-images.githubusercontent.com/37144801/116615982-fa23ab80-a933-11eb-9c19-42c0ed5783b1.PNG)
 
 ## Description of the repo
 #### Symbols and Operators
@@ -234,12 +243,19 @@ Change the directory using <b>cd Theory-of-Algorithims-Project</b>
 <b>Make SHA512</b><br>
 To create the hash file type:
 ```
-./sha512 <filename>
-```
-OR
-```
+./sha512 <filename> (Can add more files if you want)
+OR by saying:
 make
+
+Compile sha512
+gcc -o sha512 sha512.c
 ```
+The following are checked when using ./sha512<br>
+<b>No file given</b><br>
+<b>One file given</b><br>
+<b>Two files given</b><br>
+<b>Wrong file given</b><br>
+![Examples](https://user-images.githubusercontent.com/37144801/116612055-fa6d7800-a92e-11eb-857c-32c590d7d177.PNG)
 
 ## Answers to questions
 #### Why can't we reverse the SHA512 algorithm to retrieve the original message from a hash digest?
