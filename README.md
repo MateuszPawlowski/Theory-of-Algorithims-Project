@@ -16,7 +16,7 @@ Following symbols and operators are used in the secure has algorithim
 - <b>ROTR n(x)=(x >> n) ∨ (x << w - n)</b> Circular right shift operation, where x is a w-bit word and n is an integer with 0 <= n < w
 - <b>SHR n(x)=x >> n</b> The right shift operation, where x is a w-bit word and n is an integer with 0 <= n < w
 
-#### Defined functions
+Defined functions
 ```C
 #define ROTL(_x,_n) ((_x << _n) | (_x >> ((sizeof(_x)*8) - _n)))
 #define ROTR(_x,_n) ((_x >> _n) | (_x << ((sizeof(_x)*8) - _n)))
@@ -31,7 +31,6 @@ Following symbols and operators are used in the secure has algorithim
 #define Sig1(_x) (ROTR(_x,19) ^ ROTR(_x,61) ^ SHR(_x,6))
 ```
 
-#### Union Block
 SHA512 works on block of 1024 bits
 ```C
 union Block {
@@ -83,17 +82,80 @@ WORD H[] = {
     0x510e527fade682d1, 0x9b05688c2b3e6c1f, 0x1f83d9abfb41bd6b, 0x5be0cd19137e2179
 };
 ```
-Main method of the project
+Main method of the project, following steps are done in here:
+- Create a File pointer for reading in a file
+- Open file from command line for reading
+- Calculate the SHA512 of f
+- Print the final SHA512 hash
+- Close the file
 ```C
 int main(int argc, char *argv[]) {
-  // Create a File pointer for reading in a file
-  // Open file from command line for reading
-  // Calculate the SHA512 of f
-  // Print the final SHA512 hash
-  // Close the file and return 0
+  ...
+  return 0;
 }
 ```
+SHA512 method. This is the function that performs/orchestrates the SHA512 algorithm on message f. Following Steps steps are done in here:
+- Set current block
+- Set number of bits to equal 0
+- Set current status to read
+- Loop through the (preprocessed) blocks
+```C
+int sha512(FILE *f, WORD H[]) {
+    ...
+    // Looping through blocks
+    while (next_block(f, &M, &S, &nobits)) {
+        next_hash(&M, H);
+    }
+    return 0;
+}
+```
+Next_Block method. This method will return 1 if it created a new block from original message or padding/ return 0 if all padded messages have already been consumed
+```C
+int next_block(FILE *f, union Block *M, enum Status *S, uint64_t *nobits) {
+    
+    
+}
+```
+Next_Hash method. Each message block is processed in order, using the following steps:
+```C
+int next_hash(union Block *M, WORD H[]) {
+    // Message schedule
+    WORD W[128];
 
+    // Iterator
+    int t;
+
+    // Temporary variables
+    WORD a, b, c, d, e, f, g, h, T1, T2;
+    ...
+    return 0;
+}
+```
+- Step 1: Prepare the message schedule
+```C
+for (t = 0; t < 16; t++)
+    W[t] = M->words[t];
+for (t = 16; t < 80; t++)
+    W[t] = Sig1(W[t-2]) + W[t-7] + Sig0(W[t-15]) + W[t-16];
+```
+- Step 2: Initialize the eight working variables with the hash value
+```C
+a = H[0]; b = H[1]; c = H[2]; d = H[3];
+e = H[4]; f = H[5]; g = H[6]; h = H[7];
+```
+- Step 3: Loop through t when it is 0 to 79
+```C
+for (t = 0; t < 80; t++) {
+    T1 = h + SIG1(e) + CH(e, f, g) + K[t] + W[t];
+    T2 = SIG0(a) + MAJ(a, b, c);
+    h = g; g = f; f = e; e = d + T1; d = c; c = b; b = a; a = T1 + T2;
+}
+```
+- Step 4: Compute the intermediate hash value
+```C
+H[0] = a + H[0]; H[1] = b + H[1]; H[2] = c + H[2]; H[3] = d + H[3];
+H[4] = e + H[4]; H[5] = f + H[5]; H[6] = g + H[6]; H[7] = h + H[7];
+```
 
 ## Instalations
 These are the instructions to guide you how to set up this project on your own device. This project was created in Ubuntu.
@@ -128,7 +190,7 @@ wsl --set-default-version 2
 You can find all the linux distributions on the [Microsoft store](https://aka.ms/wslstore). Pick the Linux distribution you want to work with (Ubuntu in my case). Opening the Linux distribution will take longer as you will be asked to wait for a minute or two for files to de-compress and be stored on your PC. All future launches should take less than a second.
 Once completed you will need to create a user and passowrd for login purposes. That is all for downloading Linux distribution on your device.
 
-### Install Windows Terminal (Optional)
+#### Install Windows Terminal
 - Get windows terminal from [here](https://docs.microsoft.com/en-us/windows/terminal/get-started)
 - Set your distribution version, either WSL1 or WSL2. Open up powershell as administrator and type in:
 ```
@@ -142,8 +204,23 @@ wsl --set-default-version 2
 #### Troubleshooting installation
 For any troubles please visit microsoft [Troubleshooting installation](https://docs.microsoft.com/en-us/windows/wsl/install-win10#troubleshooting-installation)
 
+#### Git clone
+Create a new folder on the desktop. Use your windows terminal, swith to ubuntu and direct to the desktop file you just created.
+Inside type the following:
+```
+git clone https://github.com/MateuszPawlowski/Theory-of-Algorithims-Project
+```
+Change the directory using <b>cd Theory-of-Algorithims-Project</b>
 
-
+#### Make SHA512
+To create the hash file type:
+```
+./sha512 <filename>
+```
+OR
+```
+make
+```
 
 # Answers to questions
 #### Why can't we reverse the SHA512 algorithm to retrieve the original message from a hash digest?
