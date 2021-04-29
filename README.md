@@ -5,7 +5,34 @@ This is my solution to the project that we have gotten for Theory of Algorithims
 In this project you must write a program in the C programming language to calculate the SHA512 value of an input file. Your program must take the name or path of the file as a command line argument and output the SHA512 digest of it. The program must be coded from scratch - you cannot use any external libraries other than what is included in the C standard library. Your program must compile using gcc or clang and you must include a Makefile which compiles it upon make being called in the project folder. You must also include tests which run upon make test being called, as will be described in lectures. You should also include in your repository an appropriate .gitignore file and a README.md as described below.
 
 ## What is SHA512 ?
-SHA512 is a set of set of cryptograpchic has functions with digest length of 512. 
+SHA512 is a set of set of cryptograpchic hash functions with digest length of 512. 
+
+## Description of the repo
+#### Symbols and Operators
+Following symbols and operators are used in the secure has algorithim
+- <b>AND, OR, XOR</b> are used as <b>^, ⊕, ∨</b>
+- <b>Complement, Left-shift, Right-shift</b> are used as <b>~, <<, >></b>
+- <b>ROTL n(x)=(x << n) ∨ (x >> w - n)</b> Circular left shift operation, where x is a w-bit word and n is an integer with 0 <= n < w
+- <b>ROTR n(x)=(x >> n) ∨ (x << w - n)</b> Circular right shift operation, where x is a w-bit word and n is an integer with 0 <= n < w
+- <b>SHR n(x)=x >> n</b> The right shift operation, where x is a w-bit word and n is an integer with 0 <= n < w
+
+#### Defined functions
+```C
+#define ROTL(_x,_n) ((_x << _n) | (_x >> ((sizeof(_x)*8) - _n)))
+#define ROTR(_x,_n) ((_x >> _n) | (_x << ((sizeof(_x)*8) - _n)))
+#define SHR(_x,_n) (_x >> _n)
+
+#define CH(_x,_y,_z) ((_x & _y) ^ (~_x & _z))
+#define MAJ(_x,_y,_z) ((_x & _y) ^ (_x & _z) ^ (_y & _z))
+
+#define SIG0(_x) (ROTR(_x,28)  ^ ROTR(_x,34) ^ ROTR(_x,39))
+#define SIG1(_x) (ROTR(_x,14)  ^ ROTR(_x,18) ^ ROTR(_x,41))
+#define Sig0(_x) (ROTR(_x,1)  ^ ROTR(_x,8) ^ SHR(_x,7))
+#define Sig1(_x) (ROTR(_x,19) ^ ROTR(_x,61) ^ SHR(_x,6))
+```
+
+#### Union Block
+SHA512 works on block of 1024 bits
 
 ## Instalations
 These are the instructions to guide you how to set up this project on your own device. This project was created in Ubuntu.
