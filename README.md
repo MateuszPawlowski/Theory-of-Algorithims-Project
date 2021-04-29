@@ -15,7 +15,7 @@ Following symbols and operators are used in the secure has algorithim
 - <b>ROTL n(x)=(x << n) ∨ (x >> w - n)</b> Circular left shift operation, where x is a w-bit word and n is an integer with 0 <= n < w
 - <b>ROTR n(x)=(x >> n) ∨ (x << w - n)</b> Circular right shift operation, where x is a w-bit word and n is an integer with 0 <= n < w
 - <b>SHR n(x)=x >> n</b> The right shift operation, where x is a w-bit word and n is an integer with 0 <= n < w
-
+---
 Defined functions
 ```C
 #define ROTL(_x,_n) ((_x << _n) | (_x >> ((sizeof(_x)*8) - _n)))
@@ -82,6 +82,7 @@ WORD H[] = {
     0x510e527fade682d1, 0x9b05688c2b3e6c1f, 0x1f83d9abfb41bd6b, 0x5be0cd19137e2179
 };
 ```
+---
 Main method of the project, following steps are done in here:
 - Create a File pointer for reading in a file
 - Open file from command line for reading
@@ -94,6 +95,7 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 ```
+---
 SHA512 method. This is the function that performs/orchestrates the SHA512 algorithm on message f. Following Steps steps are done in here:
 - Set current block
 - Set number of bits to equal 0
@@ -109,13 +111,30 @@ int sha512(FILE *f, WORD H[]) {
     return 0;
 }
 ```
+---
 Next_Block method. This method will return 1 if it created a new block from original message or padding/ return 0 if all padded messages have already been consumed
 ```C
 int next_block(FILE *f, union Block *M, enum Status *S, uint64_t *nobits) {
+    // Number of bytes read
+    size_t nobytes;
     
+    if (*S == END) {
+        return 0;
+    } else if (*S == READ) {
+        ...
+    } else if (*S == PAD) {
+        ...
+    }
     
+    // Swap the byte order of the words if we're little endian
+    if (islilend())
+        for (int i = 0; i < 16; i++)
+            M->words[i] = bswap_64(M->words[i]);
+            
+    return 1;
 }
 ```
+---
 Next_Hash method. Each message block is processed in order, using the following steps:
 ```C
 int next_hash(union Block *M, WORD H[]) {
@@ -160,37 +179,37 @@ H[4] = e + H[4]; H[5] = f + H[5]; H[6] = g + H[6]; H[7] = h + H[7];
 ## Instalations
 These are the instructions to guide you how to set up this project on your own device. This project was created in Ubuntu.
 
-#### Step 1: Enable WSL
+<b>Step 1: Enable WSL</b><br>
 Firstly you will need to enable "Windows Subsystem for Linux" before installing any Linux distributions on Windows. Open up powershell as administrator and type in:
 ```
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 ```
 
-#### Step 2: Check requirements for WSL2
+<b>Step 2: Check requirements for WSL2</b><br>
 In order to update to WSL2 you need to be on Windows 10. To check your windows version, press <b>window key + R</b> and type <b>winver</b>.
 
-#### Step 3: Enable VM (Virtual Machine) feature
+<b>Step 3: Enable VM (Virtual Machine) feature</b><br>
 In order to install WSL2 you need to enable the virtual machine feature. Open up powershell as administrator and type in:
 ```
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 ```
 Make sure to restart your PC after this step.
 
-#### Step 4: Download latest Linux kernel package
-1. Donwload the latest package and run the update:
+<b>Step 4: Download latest Linux kernel package</b><br>
+- Donwload the latest package and run the update:
 [WSL2 Linux kernel update package for x64 machines](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
 
-#### Step 5: Set WSL2 as default version
+<b>Step 5: Set WSL2 as default version</b><br>
 Open up powershell as administrator and type in:
 ```
 wsl --set-default-version 2
 ```
 
-#### Step 6: Install your Linux distribution of choice
+<b>Step 6: Install your Linux distribution of choice</b><br>
 You can find all the linux distributions on the [Microsoft store](https://aka.ms/wslstore). Pick the Linux distribution you want to work with (Ubuntu in my case). Opening the Linux distribution will take longer as you will be asked to wait for a minute or two for files to de-compress and be stored on your PC. All future launches should take less than a second.
 Once completed you will need to create a user and passowrd for login purposes. That is all for downloading Linux distribution on your device.
 
-#### Install Windows Terminal
+<b>Install Windows Terminal</b><br>
 - Get windows terminal from [here](https://docs.microsoft.com/en-us/windows/terminal/get-started)
 - Set your distribution version, either WSL1 or WSL2. Open up powershell as administrator and type in:
 ```
@@ -201,10 +220,10 @@ wsl --set-version <distribution name> <versionNumber>
 wsl --set-default-version 2
 ```
 
-#### Troubleshooting installation
+<b>Troubleshooting installation</b><br>
 For any troubles please visit microsoft [Troubleshooting installation](https://docs.microsoft.com/en-us/windows/wsl/install-win10#troubleshooting-installation)
 
-#### Git clone
+<b>Git clone</b><br>
 Create a new folder on the desktop. Use your windows terminal, swith to ubuntu and direct to the desktop file you just created.
 Inside type the following:
 ```
@@ -212,7 +231,7 @@ git clone https://github.com/MateuszPawlowski/Theory-of-Algorithims-Project
 ```
 Change the directory using <b>cd Theory-of-Algorithims-Project</b>
 
-#### Make SHA512
+<b>Make SHA512</b><br>
 To create the hash file type:
 ```
 ./sha512 <filename>
@@ -222,7 +241,7 @@ OR
 make
 ```
 
-# Answers to questions
+## Answers to questions
 #### Why can't we reverse the SHA512 algorithm to retrieve the original message from a hash digest?
 - It isnt encrypted it is hashed.
 - https://crypto.stackexchange.com/questions/45377/why-cant-we-reverse-hashes#:~:text=Bit%20dependency%3A%20A%20hash%20algorithm,of%20the%20output%20hash%20separately.
