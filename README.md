@@ -5,9 +5,9 @@ This is my solution to the project that we have gotten for Theory of Algorithims
 In this project we had to write a program in the C programming language to calculate the SHA512 value of an input file. The program had tp take the name or path of the file as a command line argument and output the SHA512 digest of it. We were not allowed to use any external libraries other than what is included in the C standard library. The programe has to compile using gcc or clang and we had to include a Makefile which compiles it upon make being called in the project folder. We also had to include tests which will run upon make test being called. In the repository we should also include an appropriate .gitignore file and a README.md. This is my solution to the project.
 
 ## What is SHA512 ?
-SHA512 is a hashing algorithim that when given a data (for this project a file) performs a hashing function with digest length of 512. SHA512 is part of a hashing algorithims called SHA-2 which includes SHA256 that is used in bitcoin blockchain for hashing.<br>
+SHA512 is a hashing algorithim that when given a data (for this project a file) performs a hashing function. SHA512 is part of a hashing algorithims called SHA-2 which includes SHA256 that is used in bitcoin blockchain for hashing.<br>
 Hasing algorithims as mentioned previously are used for blockchains and for other internet security issues. This shows how crucial role they play in cryptography and digital security.<br>
-Hashing function takes some data (for example a file or a string) and gives out an output called hash digest. That gives a fixed length for that input data. In order to be useful there are some properties it needs to go over.<br>
+Hashing function takes some data (for example a file or a string) and gives out an output called hash digest. That gives a fixed length for that input data and because we are speaking about SHA512 this length will be 512. However, in order for the hash alrogithim to be useful there are some properties it needs to go over.<br>
 There are 4 main properties in order to create a good hash algorithim:
 - The hash value is fully determined by the data being hashed
 - The hash function uses all the input data
@@ -15,6 +15,78 @@ There are 4 main properties in order to create a good hash algorithim:
 - The hash function generates very different hash values for similar inputs
 
 ![512example](https://user-images.githubusercontent.com/37144801/116615982-fa23ab80-a933-11eb-9c19-42c0ed5783b1.PNG)
+
+## Instalations
+These are the instructions to guide you how to set up this project on your own device. This project was created in Ubuntu.
+
+<b>Step 1: Enable WSL</b><br>
+Firstly you will need to enable "Windows Subsystem for Linux" before installing any Linux distributions on Windows. Open up powershell as administrator and type in:
+```
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+```
+
+<b>Step 2: Check requirements for WSL2</b><br>
+In order to update to WSL2 you need to be on Windows 10. To check your windows version, press <b>window key + R</b> and type <b>winver</b>.
+
+<b>Step 3: Enable VM (Virtual Machine) feature</b><br>
+In order to install WSL2 you need to enable the virtual machine feature. Open up powershell as administrator and type in:
+```
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+```
+Make sure to restart your PC after this step.
+
+<b>Step 4: Download latest Linux kernel package</b><br>
+- Donwload the latest package and run the update:
+[WSL2 Linux kernel update package for x64 machines](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
+
+<b>Step 5: Set WSL2 as default version</b><br>
+Open up powershell as administrator and type in:
+```
+wsl --set-default-version 2
+```
+
+<b>Step 6: Install your Linux distribution of choice</b><br>
+You can find all the linux distributions on the [Microsoft store](https://aka.ms/wslstore). Pick the Linux distribution you want to work with (Ubuntu in my case). Opening the Linux distribution will take longer as you will be asked to wait for a minute or two for files to de-compress and be stored on your PC. All future launches should take less than a second.
+Once completed you will need to create a user and passowrd for login purposes. That is all for downloading Linux distribution on your device.
+
+<b>Install Windows Terminal</b><br>
+- Get windows terminal from [here](https://docs.microsoft.com/en-us/windows/terminal/get-started)
+- Set your distribution version, either WSL1 or WSL2. Open up powershell as administrator and type in:
+```
+wsl --set-version <distribution name> <versionNumber>
+```
+- To make WSL your default architecture in powershell type in:
+```
+wsl --set-default-version 2
+```
+
+<b>Troubleshooting installation</b><br>
+For any troubles please visit microsoft [Troubleshooting installation](https://docs.microsoft.com/en-us/windows/wsl/install-win10#troubleshooting-installation)
+
+<b>Git clone</b><br>
+Create a new folder on the desktop. Use your windows terminal, swith to ubuntu and direct to the desktop file you just created.
+Inside type the following:
+```
+git clone https://github.com/MateuszPawlowski/Theory-of-Algorithims-Project
+```
+Change the directory using <b>cd Theory-of-Algorithims-Project</b>
+
+<b>Make SHA512</b><br>
+To create the hash file type:
+```
+./sha512 <filename> (Can add more files if you want)
+OR by saying:
+make
+
+Compile sha512
+gcc -o sha512 sha512.c
+```
+The following are checked when using ./sha512<br>
+<b>No file given</b><br>
+<b>One file given</b><br>
+<b>Two files given</b><br>
+<b>Wrong file given</b><br>
+![Examples](https://user-images.githubusercontent.com/37144801/116612055-fa6d7800-a92e-11eb-857c-32c590d7d177.PNG)
 
 ## Description of the repo
 #### Symbols and Operators
@@ -184,78 +256,6 @@ for (t = 0; t < 80; t++) {
 H[0] = a + H[0]; H[1] = b + H[1]; H[2] = c + H[2]; H[3] = d + H[3];
 H[4] = e + H[4]; H[5] = f + H[5]; H[6] = g + H[6]; H[7] = h + H[7];
 ```
-
-## Instalations
-These are the instructions to guide you how to set up this project on your own device. This project was created in Ubuntu.
-
-<b>Step 1: Enable WSL</b><br>
-Firstly you will need to enable "Windows Subsystem for Linux" before installing any Linux distributions on Windows. Open up powershell as administrator and type in:
-```
-dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-```
-
-<b>Step 2: Check requirements for WSL2</b><br>
-In order to update to WSL2 you need to be on Windows 10. To check your windows version, press <b>window key + R</b> and type <b>winver</b>.
-
-<b>Step 3: Enable VM (Virtual Machine) feature</b><br>
-In order to install WSL2 you need to enable the virtual machine feature. Open up powershell as administrator and type in:
-```
-dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-```
-Make sure to restart your PC after this step.
-
-<b>Step 4: Download latest Linux kernel package</b><br>
-- Donwload the latest package and run the update:
-[WSL2 Linux kernel update package for x64 machines](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
-
-<b>Step 5: Set WSL2 as default version</b><br>
-Open up powershell as administrator and type in:
-```
-wsl --set-default-version 2
-```
-
-<b>Step 6: Install your Linux distribution of choice</b><br>
-You can find all the linux distributions on the [Microsoft store](https://aka.ms/wslstore). Pick the Linux distribution you want to work with (Ubuntu in my case). Opening the Linux distribution will take longer as you will be asked to wait for a minute or two for files to de-compress and be stored on your PC. All future launches should take less than a second.
-Once completed you will need to create a user and passowrd for login purposes. That is all for downloading Linux distribution on your device.
-
-<b>Install Windows Terminal</b><br>
-- Get windows terminal from [here](https://docs.microsoft.com/en-us/windows/terminal/get-started)
-- Set your distribution version, either WSL1 or WSL2. Open up powershell as administrator and type in:
-```
-wsl --set-version <distribution name> <versionNumber>
-```
-- To make WSL your default architecture in powershell type in:
-```
-wsl --set-default-version 2
-```
-
-<b>Troubleshooting installation</b><br>
-For any troubles please visit microsoft [Troubleshooting installation](https://docs.microsoft.com/en-us/windows/wsl/install-win10#troubleshooting-installation)
-
-<b>Git clone</b><br>
-Create a new folder on the desktop. Use your windows terminal, swith to ubuntu and direct to the desktop file you just created.
-Inside type the following:
-```
-git clone https://github.com/MateuszPawlowski/Theory-of-Algorithims-Project
-```
-Change the directory using <b>cd Theory-of-Algorithims-Project</b>
-
-<b>Make SHA512</b><br>
-To create the hash file type:
-```
-./sha512 <filename> (Can add more files if you want)
-OR by saying:
-make
-
-Compile sha512
-gcc -o sha512 sha512.c
-```
-The following are checked when using ./sha512<br>
-<b>No file given</b><br>
-<b>One file given</b><br>
-<b>Two files given</b><br>
-<b>Wrong file given</b><br>
-![Examples](https://user-images.githubusercontent.com/37144801/116612055-fa6d7800-a92e-11eb-857c-32c590d7d177.PNG)
 
 ## Answers to questions
 #### Why can't we reverse the SHA512 algorithm to retrieve the original message from a hash digest?
