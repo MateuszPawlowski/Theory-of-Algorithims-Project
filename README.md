@@ -259,8 +259,11 @@ H[4] = e + H[4]; H[5] = f + H[5]; H[6] = g + H[6]; H[7] = h + H[7];
 
 ## Answers to questions
 #### Why can't we reverse the SHA512 algorithm to retrieve the original message from a hash digest?
-- It isnt encrypted it is hashed.
-- https://crypto.stackexchange.com/questions/45377/why-cant-we-reverse-hashes#:~:text=Bit%20dependency%3A%20A%20hash%20algorithm,of%20the%20output%20hash%20separately.
+I found a great and simple explanation by adelphus on StackExchange. Let’s pretend the algorithm is like a mathematical addition problem. Adding involves two inputs and one output, if we know the two inputs it is very easy for us to find what the output is going to be. However, if we only have the output there are countless possibilities that we can get for what the inputs are. For example, if we have 10 + 10 as inputs it is easy to say the output will be 20 but if we only know that the answer of the two inputs is 20 there are infinite number of possibilities like, 19 + 1 or 18 + 2 or 70 - 50 etc.
+It is a one way function, reveresing it would defeat it's purpose.
+It isnt encrypted it is hashed.
+- https://crypto.stackexchange.com/questions/45377/why-cant-we-reverse-hashes#:~:text=Bit%20dependency%3A%20A%20hash%20algorithm,of%20the%20output%20hash%20separately
+- https://security.stackexchange.com/questions/145284/why-cant-sha256-be-decrypted
 ...
 #### Can you design an algorithm that, given enough time, will find input messages that give each of the possible 512-bit strings?
 ...
