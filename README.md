@@ -259,9 +259,13 @@ H[4] = e + H[4]; H[5] = f + H[5]; H[6] = g + H[6]; H[7] = h + H[7];
 
 ## Answers to questions
 #### Why can't we reverse the SHA512 algorithm to retrieve the original message from a hash digest?
-I found a great and simple explanation by adelphus on StackExchange. Let’s pretend the algorithm is like a mathematical addition problem. Adding involves two inputs and one output, if we know the two inputs it is very easy for us to find what the output is going to be. However, if we only have the output there are countless possibilities that we can get for what the inputs are. For example, if we have 10 + 10 as inputs it is easy to say the output will be 20 but if we only know that the answer of the two inputs is 20 there are infinite number of possibilities like, 19 + 1 or 18 + 2 or 70 - 50 etc.
-It is a one way function, reveresing it would defeat it's purpose.
-It isnt encrypted it is hashed.
+I found a great and simple explanation by adelphus on StackExchange. Let’s pretend the algorithm is like a mathematical addition problem. Adding involves two inputs and one output, if we know the two inputs it is very easy for us to find what the output is going to be. However, if we only have the output there are countless possibilities that we can get for what the inputs are. For example, if we have 10 + 10 as inputs it is easy to say the output will be 20 but if we only know that the answer of the two inputs is 20 there are infinite number of possibilities like, 19 + 1 or 18 + 2 or 70 - 50 etc. SHA512 algorithim is a one way function, reveresing it would defeat it's purpose.
+
+Below I go over more details on why SHA512 algorithm is non reversable.
+- Bit Dependency: In order to prevent any reverse calculations or splitting up the algorithim the algorithim is designed in such way to ensure that each bit of the output is dependent upon evert bit in the input. In simpler words, in order to get even one output bit you will need to know the whole input.
+- Avalanching: This relates to bit dependancy, any small change inside the data (a single bit) in a good algorithim will change the hash output drastically. This disables people to try and build relationships between the inputs and the outputs. 
+- Non-linearity: Hashing algorithms always contain non-linear operations - this prevents people from using linear algebra techniques to "solve" the input from a given output. Note the addition example I use above is a linear operation; building a hash algorithm using just addition operators is a really bad idea! In reality, hashing algorithms use many combinations of linear and non-linear operations.
+
 - https://crypto.stackexchange.com/questions/45377/why-cant-we-reverse-hashes#:~:text=Bit%20dependency%3A%20A%20hash%20algorithm,of%20the%20output%20hash%20separately
 - https://security.stackexchange.com/questions/145284/why-cant-sha256-be-decrypted
 ...
