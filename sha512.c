@@ -195,7 +195,7 @@ int main(int argc, char *argv[]) {
     FILE *f;
 
     if(argc < 2){
-        printf("No file was given.Please try again\n");
+        printf("No file was given. Please try again\n");
     } else{
         for(int j =1; j < argc; j++){
             // Open file from command line for reading

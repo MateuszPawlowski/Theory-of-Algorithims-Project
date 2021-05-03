@@ -290,3 +290,4 @@ For a few years there was a competition (you can find it by clicking the link [h
 - [4] https://security.stackexchange.com/questions/145284/why-cant-sha256-be-decrypted
 - [5] https://www.quora.com/How-can-you-use-the-longest-hash-possible-How-long-is-good-enough
 - [6] http://www.cryptoswise.com/bitcoin-core-how-difficult-is-it-to-find-a-hash-digest-beginning-with-at-least-twelve-zeros/
+- [7] https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf
