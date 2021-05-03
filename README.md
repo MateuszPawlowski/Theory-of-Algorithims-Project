@@ -1,14 +1,14 @@
-# Theory-of-Algorithims-Project
-This is my solution to the project that we have gotten for Theory of Algorithims.
+# Theory-of-Algorithms-Project
+This is my solution to the project that we have gotten for Theory of Algorithms.
 
 ## What we needed to do
-In this project we had to write a program in the C programming language to calculate the SHA512 value of an input file. The program had tp take the name or path of the file as a command line argument and output the SHA512 digest of it. We were not allowed to use any external libraries other than what is included in the C standard library. The programe has to compile using gcc or clang and we had to include a Makefile which compiles it upon make being called in the project folder. We also had to include tests which will run upon make test being called. In the repository we should also include an appropriate .gitignore file and a README.md. This is my solution to the project.
+In this project we had to write a program in the C programming language to calculate the SHA512 value of an input file. The program had to take the name or path of the file as a command line argument and output the SHA512 digest of it. We were not allowed to use any external libraries other than what is included in the C standard library. The programme must compile using gcc or clang and we had to include a Makefile which compiles it upon make being called in the project folder. We also had to include tests which will run upon make test being called. In the repository we should also include an appropriate .gitignore file and a README.md. This is my solution to the project.
 
 ## What is SHA512 ?
-SHA512 is a hashing algorithim that when given a data (for this project a file) performs a hashing function. SHA512 is part of a hashing algorithims called SHA-2 which includes SHA256 that is used in bitcoin blockchain for hashing.<br>
-Hasing algorithims as mentioned previously are used for blockchains and for other internet security issues. This shows how crucial role they play in cryptography and digital security.<br>
-Hashing function takes some data (for example a file or a string) and gives out an output called hash digest. That gives a fixed length for that input data and because we are speaking about SHA512 this length will be 512. However, in order for the hash alrogithim to be useful there are some properties it needs to go over.<br>
-There are 4 main properties in order to create a good hash algorithim:
+SHA512 is a hashing algorithm that when given a data (for this project a file) performs a hashing function. SHA512 is part of hashing algorithms called SHA-2 which includes SHA256 that is used in bitcoin blockchain for hashing.<br>
+Hashing algorithms as mentioned previously are used for blockchains and for other internet security issues. This shows how crucial role they play in cryptography and digital security.<br>
+Hashing function takes some data (for example a file or a string) and gives out an output called hash digest. That gives a fixed length for that input data and because we are speaking about SHA512 this length will be 512. However, in order for the hash algorithm to be useful there are some properties it needs to go over. [1]<br>
+There are 4 main properties in order to create a good hash algorithm [2]:
 - The hash value is fully determined by the data being hashed
 - The hash function uses all the input data
 - The hash function "uniformly" distributes the data across the entire set of possible hash values
@@ -17,10 +17,10 @@ There are 4 main properties in order to create a good hash algorithim:
 ![512example](https://user-images.githubusercontent.com/37144801/116615982-fa23ab80-a933-11eb-9c19-42c0ed5783b1.PNG)
 
 ## Instalations
-These are the instructions to guide you how to set up this project on your own device. This project was created in Ubuntu.
+These are the instructions to guide you how to set up this project on your own device. This project was created in Ubuntu [3].
 
 <b>Step 1: Enable WSL</b><br>
-Firstly you will need to enable "Windows Subsystem for Linux" before installing any Linux distributions on Windows. Open up powershell as administrator and type in:
+Firstly, you will need to enable "Windows Subsystem for Linux" before installing any Linux distributions on Windows. Open up powershell as administrator and type in:
 ```
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 ```
@@ -36,7 +36,7 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 Make sure to restart your PC after this step.
 
 <b>Step 4: Download latest Linux kernel package</b><br>
-- Donwload the latest package and run the update:
+- Download the latest package and run the update:
 [WSL2 Linux kernel update package for x64 machines](https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi)
 
 <b>Step 5: Set WSL2 as default version</b><br>
@@ -47,7 +47,7 @@ wsl --set-default-version 2
 
 <b>Step 6: Install your Linux distribution of choice</b><br>
 You can find all the linux distributions on the [Microsoft store](https://aka.ms/wslstore). Pick the Linux distribution you want to work with (Ubuntu in my case). Opening the Linux distribution will take longer as you will be asked to wait for a minute or two for files to de-compress and be stored on your PC. All future launches should take less than a second.
-Once completed you will need to create a user and passowrd for login purposes. That is all for downloading Linux distribution on your device.
+Once completed you will need to create a user and password for login purposes. That is all for downloading Linux distribution on your device.
 
 <b>Install Windows Terminal</b><br>
 - Get windows terminal from [here](https://docs.microsoft.com/en-us/windows/terminal/get-started)
@@ -64,7 +64,7 @@ wsl --set-default-version 2
 For any troubles please visit microsoft [Troubleshooting installation](https://docs.microsoft.com/en-us/windows/wsl/install-win10#troubleshooting-installation)
 
 <b>Git clone</b><br>
-Create a new folder on the desktop. Use your windows terminal, swith to ubuntu and direct to the desktop file you just created.
+Create a new folder on the desktop. Use your windows terminal, switch to ubuntu and direct to the desktop file you just created.
 Inside type the following:
 ```
 git clone https://github.com/MateuszPawlowski/Theory-of-Algorithims-Project
@@ -90,7 +90,7 @@ The following are checked when using ./sha512<br>
 
 ## Description of the repo
 #### Symbols and Operators
-Following symbols and operators are used in the secure has algorithim
+Following symbols and operators are used in the secure has algorithm.
 - <b>AND, OR, XOR</b> are used as <b>^, ⊕, ∨</b>
 - <b>Complement, Left-shift, Right-shift</b> are used as <b>~, <<, >></b>
 - <b>ROTL n(x)=(x << n) ∨ (x >> w - n)</b> Circular left shift operation, where x is a w-bit word and n is an integer with 0 <= n < w
@@ -177,7 +177,7 @@ int main(int argc, char *argv[]) {
 }
 ```
 ---
-SHA512 method. This is the function that performs/orchestrates the SHA512 algorithm on message f. Following Steps steps are done in here:
+SHA512 method. This is the function that performs/orchestrates the SHA512 algorithm on message f. Following steps are done in here:
 - Set current block
 - Set number of bits to equal 0
 - Set current status to read
@@ -259,33 +259,34 @@ H[4] = e + H[4]; H[5] = f + H[5]; H[6] = g + H[6]; H[7] = h + H[7];
 
 ## Answers to questions
 #### Why can't we reverse the SHA512 algorithm to retrieve the original message from a hash digest?
-SHA512 algorithim is a one way function, reveresing it would defeat it's purpose. I found a great and simple explanation by adelphus on StackExchange. Let’s pretend the algorithm is like a mathematical addition problem. Adding involves two inputs and one output, if we know the two inputs it is very easy for us to find what the output is going to be. However, if we only have the output there are countless possibilities that we can get for what the inputs are. For example, if we have 10 + 10 as inputs it is easy to say the output will be 20 but if we only know that the answer of the two inputs is 20 there are infinite number of possibilities like, 19 + 1 or 18 + 2 or 70 - 50 etc.
+SHA512 algorithm is a one-way function, reversing it would defeat its purpose. I found a great and simple explanation by adelphus on StackExchange. Let’s pretend the algorithm is like a mathematical addition problem. Adding involves two inputs and one output, if we know the two inputs it is very easy for us to find what the output is going to be. However, if we only have the output there are countless possibilities that we can get for what the inputs are. For example, if we have 10 + 10 as inputs it is easy to say the output will be 20 but if we only know that the answer of the two inputs is 20 there are infinite number of possibilities like, 19 + 1 or 18 + 2 or 70 - 50 etc. [4].
 
 Below are more details on why SHA512 algorithm is non reversable.
-- Bit Dependency: In order to prevent any reverse calculations or splitting up the algorithim the algorithim is designed in such way to ensure that each bit of the output is dependent upon evert bit in the input. In simpler words, in order to get even one output bit you will need to know the whole input.
-- Avalanching: This relates to bit dependancy, any small change inside the data (a single bit) in a good algorithim will change the hash output drastically. This disables people to try and build relationships between the inputs and the outputs. 
-- Non-linearity: Hashing algorithms always contain non-linear operations - this prevents people from using linear algebra techniques to "solve" the input from a given output. The addition example used previously is actually a linear operation. building a hash algorithm using onlny addition operators would be a really bad idea. In hash algorithims they use many combinations of linear and non-linear operations.
-
-- https://crypto.stackexchange.com/questions/45377/why-cant-we-reverse-hashes#:~:text=Bit%20dependency%3A%20A%20hash%20algorithm,of%20the%20output%20hash%20separately
-- https://security.stackexchange.com/questions/145284/why-cant-sha256-be-decrypted
+- Bit Dependency: In order to prevent any reverse calculations or splitting up the algorithm the algorithm is designed in such way to ensure that each bit of the output is dependent upon every bit in the input. In simpler words, in order to get even one output bit, you will need to know the whole input.
+- Avalanching: This relates to bit dependency, any small change inside the data (a single bit) in a good algorithm will change the hash output drastically. This disables people to try and build relationships between the inputs and the outputs. 
+- Non-linearity: Hashing algorithms always contain non-linear operations - this prevents people from using linear algebra techniques to "solve" the input from a given output. The addition example used previously is actually a linear operation. building a hash algorithm using only addition operators would be a really bad idea. In hash algorithms they use many combinations of linear and non-linear operations.
 
 #### Can you design an algorithm that, given enough time, will find input messages that give each of the possible 512-bit strings?
-When you find two inputs with the same hash it is called a hash collision. With non secure hashes like Java classes (often java classes have a hasCode() function) are not particularly difficult to find collision as they are produced to run for cheap and some accidental collisions occur. With cryptographic hashes it is not impossible to have a collision between the hashes but rather it is very difficult to find one. <br>
-In a real hash function what happens is that one-way operations (hundreds of them) go ahead in a row and the results from the earlier operations will be used in later operations. With the person trying to reverse this and guess the inputs later in the stage, the only way to check if the number they have guessed are correct is by going over all the way back through the hash algorithm. This means that by starting to guess any numbers incorrect you will end up with inconsistency in the earlier stages. Even though most people say that with trial and error it is impossible to guess the combinations as there are more combinations out there than the number of atoms in the universe, in other words there are nearly infinite number of combinations which makes the guessing part impossibly, theoretically there is a way you can find collisions using the brute force (trying every input before it works). The force would have to take extremely long amount of time and not every collision might be useful. Let's take email for example. There might be block of data submitted into the same hash. But only a small part of those looks like proper text, and even smaller part of those look will be english text and only one of those english texts will be the one that the sender could have written. <br>
-Best cryptographic security is designed in such way that brute forcing would take longer than the age of our own planet using our best super computers. Since there are 2^512 possibilities for sha512, you would have 1/2 chance of finding one collision if you tried 2^511 different inputs. With a microsecond per attempt, it would take over 10^100 years. You can search for two hashes at the same time to go twice the speed for a faster result but that will still be a huge time. In conclusion, even though we call these hash functions as on way functions and that by guessing it is "impossible" to reverse, if we had all the time in the world, we could design an algorithm that would reverse hashes.
-
-https://crypto.stackexchange.com/questions/45377/why-cant-we-reverse-hashes
+When you find two inputs with the same hash it is called a hash collision. With non secure hashes like Java classes (often java classes have a hasCode() function) are not particularly difficult to find collision as they are produced to run for cheap and some accidental collisions occur. With cryptographic hashes it is not impossible to have a collision between the hashes but rather it is very difficult to find one.<br>
+In a real hash function what happens is that one-way operations (hundreds of them) go ahead in a row and the results from the earlier operations will be used in later operations. With the person trying to reverse this and guess the inputs later in the stage, the only way to check if the numbers they have guessed are correct is by going over all the way back through the hash algorithm. This means that by starting to guess any numbers incorrect you will end up with inconsistency in the earlier stages [3]. Even though most people say that with trial and error it is impossible to guess the combinations as there are more combinations out there than the number of atoms in the universe (in other words there are nearly infinite number of combinations which makes the guessing part impossible) theoretically there is a way you can find collisions using the brute force (trying every input before it works). The force would have to take extremely long amount of time and not every collision might be useful. Let's take email for example. There might be block of data submitted into the same hash. But only a small part of those looks like proper text, and even smaller part of those will look like english text and only one of those english texts will be the one that the sender could have actually written himself.<br>
+Best cryptographic security is designed in such way that brute forcing would take longer than the age of our own planet using our best super computers. Since there are 2^512 possibilities for sha512, you would have 1/2 chance of finding one collision if you tried 2^511 different inputs. With a microsecond per attempt, it would take over 10^100 years. You can search for two hashes at the same time to go twice the speed for a faster result but that will still be a huge time. In conclusion, even though we call these hash functions as on way functions and that by guessing it is "impossible" to reverse, if we had all the time in the world, we could design an algorithm that would reverse hashes [3].
 
 #### How difficult is it to find a hash digest beginning with at least twelve zeros?
 In hex we have 4-bits
 - On average we would expect around 1 in 2^4 values to have a hash value with 0x0 at the beginning.
 - On average we would expect around 1 in 2^8 values to have a hash value with 0x00 at the beginning.
 - On average we would expect around 1 in 2^12 values to have a hash value with 0x000 at the beginning.
-- On average we would expect around 1 in 2^16 values to have a hash value with 0x0000 at the beginnig.
+- On average we would expect around 1 in 2^16 values to have a hash value with 0x0000 at the beginning.
 
-With this information we can actually calculate what is the probability of hash digest beginning with x amount of zeros.
-The function would be as follows: 2^512/2^(4\*N) where N is the number of zeros you are looking for.<br>
-This means that in order to get a find a hash digest beginning with at least twelve zeros, you wolud use the formula 2^512/2^(4\*12) to find out the answer is 2^48, so on average we would expect around 1 in 2^48 values to have a has value with 0x000000000000 at the beginning (1 in 2.8147498e+14). I found a post where one of the users called CodesInChaos, explains it would take rougly several months for a typical desktop CPU to find a hash digest beginning with at least twelve zeros.<br>
-For a few years there was a competition (you can find it by clicking the link [here](https://web.archive.org/web/20171002020748/http://www.h11e.com/)) to find the lowest possible sha512sum of a random input. The winner, project nayuki was the lowest with twelve zeros. His code can be viewed at by pressing the link [here](https://www.nayuki.io/page/lowest-sha512-value-by-brute-force).
+With this information we can actually calculate what is the probability of hash digest beginning with N amount of zeros.
+The function would be as follows: 2^512/2^(4\*N) where N is the number of zeros you are looking for [6].<br>
+This means that in order to get a find a hash digest beginning with at least twelve zeros, you would use the formula 2^512/2^(4\*12) to find out the answer is 2^48, so on average we would expect around 1 in 2^48 values to have a has value with 0x000000000000 at the beginning (1 in 2.8147498e+14). I found a post where one of the users called CodesInChaos, explains it would take roughly several months for a typical desktop CPU to find a hash digest beginning with at least twelve zeros.<br>
+For a few years there was a competition (you can find it by clicking the link [here](https://web.archive.org/web/20171002020748/http://www.h11e.com/)) to find the lowest possible sha512sum of a random input. The winner, project nayuki was the lowest with twelve zeros. His code can be viewed by pressing the link [here](https://www.nayuki.io/page/lowest-sha512-value-by-brute-force) [6].
 
-http://www.cryptoswise.com/bitcoin-core-how-difficult-is-it-to-find-a-hash-digest-beginning-with-at-least-twelve-zeros/
+## References
+- [1] https://medium.com/@zaid960928/cryptography-explaining-sha-512-ad896365a0c1
+- [2] https://www.sparknotes.com/cs/searching/hashtables/section2/
+- [3] https://crypto.stackexchange.com/questions/45377/why-cant-we-reverse-hashes
+- [4] https://security.stackexchange.com/questions/145284/why-cant-sha256-be-decrypted
+- [5] https://www.quora.com/How-can-you-use-the-longest-hash-possible-How-long-is-good-enough
+- [6] http://www.cryptoswise.com/bitcoin-core-how-difficult-is-it-to-find-a-hash-digest-beginning-with-at-least-twelve-zeros/
