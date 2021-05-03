@@ -268,9 +268,11 @@ Below I go over more details on why SHA512 algorithm is non reversable.
 
 - https://crypto.stackexchange.com/questions/45377/why-cant-we-reverse-hashes#:~:text=Bit%20dependency%3A%20A%20hash%20algorithm,of%20the%20output%20hash%20separately
 - https://security.stackexchange.com/questions/145284/why-cant-sha256-be-decrypted
-...
+
 #### Can you design an algorithm that, given enough time, will find input messages that give each of the possible 512-bit strings?
-...
+When you find two inputs with the same hash it is called a hash collision. With non secure hashes like Java classes(ofthen java classes have a hasCode() funcion) are not particularly difficult to find collision as they are produced to run for cheap and some accidental collisions occur. With cryptographic hashes it is not impossible to have a collision between the hashes but rather it is very difficult to find one. In a real hash fucntion what happens is that one way operartions (hundreds of them) go ahead in a row and the resluts from the earlier operations will be used in later operations. With the person trying to reverse this and guess the inputs later on in the stage, the only way to check if the number they have guessed are correct is by going over all the way back through the hash algorithim. This means that by starting to guess any numbers incorrect you will end up with inconsistency in the earlier stages. Even though most people say that with trial and error it is impossible to guess the combinations as there are more combinations out there than the amount of atoms in the universe, in other words there are nearly infinite amount of combinations which makes the guessing part impossibly, theoretically there is a way you can find collisions using the brute force (trying every input before it works). The force would have to take extremly long amount of time ... Best cryptograpghic security is designed in such way that brute forcing would take longer than the age of our own planet using out best super computers. Since there are 2^512 possibilities for sha512, you would have 1/2 chance of finding one collision if you tried 2^511 different inputs. With a microsecond per attempt it would take over 10^100 years. You can search for two hashes at the same time to go twice the speed for a faster result but that will still be a huge time. In conclusion, even though we call these hash functions as on way functions and that by guessing it is "impossible" to reverse, if we had all the time in the world we could design a algorithm that would reverse hashes.
+
 #### How difficult is it to find a hash digest beginning with at least twelve zeros?
+
 ...
 http://www.cryptoswise.com/bitcoin-core-how-difficult-is-it-to-find-a-hash-digest-beginning-with-at-least-twelve-zeros/
